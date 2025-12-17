@@ -10,9 +10,59 @@
     <header>
       <h1>Mergington High School</h1>
       <h2>Extracurricular Activities</h2>
+      <div class="admin-toggle">
+        <label>
+          <input type="checkbox" id="admin-mode" />
+          Admin/Instructor Mode
+        </label>
+      </div>
     </header>
 
     <main>
+      <section id="admin-section" class="hidden">
+        <h3>Manage Activities</h3>
+        <form id="create-activity-form">
+          <div class="form-group">
+            <label for="activity-name">Activity Name:</label>
+            <input type="text" id="activity-name" required placeholder="e.g., Summer Science Workshop" />
+          </div>
+          <div class="form-group">
+            <label for="activity-description">Description:</label>
+            <textarea id="activity-description" required placeholder="Describe the activity..."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="activity-schedule">Schedule:</label>
+            <input type="text" id="activity-schedule" required placeholder="e.g., Saturdays, 10:00 AM - 2:00 PM" />
+          </div>
+          <div class="form-group">
+            <label for="activity-max">Max Participants:</label>
+            <input type="number" id="activity-max" required min="1" placeholder="20" />
+          </div>
+          <div class="form-group">
+            <label for="activity-type">Activity Type:</label>
+            <select id="activity-type" required>
+              <option value="regular">Regular Activity</option>
+              <option value="event">Special Event</option>
+              <option value="workshop">Workshop</option>
+              <option value="training">Corporate Training</option>
+            </select>
+          </div>
+          <button type="submit">Create Activity</button>
+        </form>
+        <div id="admin-message" class="hidden"></div>
+      </section>
+
+      <section id="filter-section">
+        <h3>Filter Activities</h3>
+        <div class="filter-controls">
+          <button class="filter-btn active" data-type="all">All</button>
+          <button class="filter-btn" data-type="regular">Regular Activities</button>
+          <button class="filter-btn" data-type="event">Special Events</button>
+          <button class="filter-btn" data-type="workshop">Workshops</button>
+          <button class="filter-btn" data-type="training">Corporate Training</button>
+        </div>
+      </section>
+
       <section id="activities-container">
         <h3>Available Activities</h3>
         <div id="activities-list">
