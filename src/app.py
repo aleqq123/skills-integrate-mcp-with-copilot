@@ -21,6 +21,9 @@ current_dir = Path(__file__).parent
 app.mount("/static", StaticFiles(directory=os.path.join(Path(__file__).parent,
           "static")), name="static")
 
+# Constants
+VALID_ACTIVITY_TYPES = ["regular", "event", "workshop", "training"]
+
 # Pydantic models for request validation
 class ActivityCreate(BaseModel):
     name: str
@@ -132,11 +135,10 @@ def create_activity(activity: ActivityCreate):
         raise HTTPException(status_code=400, detail="Activity already exists")
     
     # Validate activity type
-    valid_types = ["regular", "event", "workshop", "training"]
-    if activity.activity_type not in valid_types:
+    if activity.activity_type not in VALID_ACTIVITY_TYPES:
         raise HTTPException(
             status_code=400, 
-            detail=f"Invalid activity type. Must be one of: {', '.join(valid_types)}"
+            detail=f"Invalid activity type. Must be one of: {', '.join(VALID_ACTIVITY_TYPES)}"
         )
     
     # Create new activity
@@ -160,11 +162,10 @@ def update_activity(activity_name: str, activity: ActivityUpdate):
     
     # Validate activity type if provided
     if activity.activity_type is not None:
-        valid_types = ["regular", "event", "workshop", "training"]
-        if activity.activity_type not in valid_types:
+        if activity.activity_type not in VALID_ACTIVITY_TYPES:
             raise HTTPException(
                 status_code=400, 
-                detail=f"Invalid activity type. Must be one of: {', '.join(valid_types)}"
+                detail=f"Invalid activity type. Must be one of: {', '.join(VALID_ACTIVITY_TYPES)}"
             )
     
     # Update activity fields
